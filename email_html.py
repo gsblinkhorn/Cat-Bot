@@ -49,12 +49,7 @@ def image_html(counter, img_code, comments):
 def get_quote():
     cont = requests.get(quote_url).content
     soup = BeautifulSoup(cont, 'html.parser')
-<<<<<<< HEAD
-    image = soup.find('img', {'class': "p-qotd bqPhotoDefault bqPhotoDefaultFw img-responsive delayedPhotoLoad"})
-
-=======
     class_var = "p-qotd bqPhotoDefault bqPhotoDefaultFw img-responsive delayedPhotoLoad"
     image = soup.find('img', {'class': class_var})
-    # print(soup)
->>>>>>> 6681dc08762a598c8302a64e9f2e1dba0a5618eb
+    
     return(str(image.get('alt', '')))
