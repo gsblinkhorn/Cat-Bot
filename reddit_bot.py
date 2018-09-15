@@ -8,32 +8,8 @@ import os
 
 # Retrieves images and metadata from Reddit
 def get_data():
-   clean_storage() # deletes previously downloaded pictures
    cats = run_reddit() # cats is a Subreddit object which contains desired recent posts
    get_metadata(cats) # retrieves post metadata
-
-##### Helper Functions #####
-
-# Remove old pictures from storage file
-def clean_storage():
-   print("Cleaning picture storage...")
-   assure_path_exists(config.STORAGE_PATH)
-   fileList = os.listdir(config.STORAGE_PATH)
-   try:
-       os.remove(config.BINARY_FILE)
-   except FileNotFoundError:
-       pass
-
-   for fileName in fileList:
-      os.remove(config.STORAGE_PATH+"/"+fileName)
-   print("Storage cleaned.")
-
-# Creates a directory for storing pictures if it does not already exist
-def assure_path_exists(path):
-   direc =(path)
-   if not os.path.isdir(direc):
-      os.makedirs(direc)
-      print("Directory %s created." %direc)
 
 # Initializes Reddit instance using bot's params
 def run_reddit():
@@ -101,7 +77,8 @@ def get_pic_path(url):
          img = img.resize((basewidth,hsize), Image.ANTIALIAS)
          img.save(file_path)
       return file_path
-   except:
+   except Exception as e:
+      print(e)
       print("Image download error occured")
 
 def write_tuple(tuple):
